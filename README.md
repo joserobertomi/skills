@@ -21,7 +21,7 @@ This fork exists only because that foundation was strong enough to build on. All
 
 ## What This Fork Adds
 
-- **[`/english-artifacts`](./skills/engineering/english-artifacts/SKILL.md)** — keep durable artifacts (docs, specs, code, commits, issues/PRs) in **English** while the agent talks to you in your **own language**. Artifacts are re-read every turn, where English's cheaper tokenization and stronger instruction-following pay off repeatedly; the conversation stays in the language you think in. It's configured per repo by `/setup-matt-pocock-skills` (which now also asks for your artifact vs. conversation languages) and reads `docs/agents/artifact-language.md`. See the [evidence behind the rule](./skills/engineering/english-artifacts/REFERENCE.md).
+- **[`/english-artifacts`](./skills/engineering/english-artifacts/SKILL.md)** — keep durable artifacts (docs, specs, code, commits, issues/PRs) in **English** while the agent talks to you in your **own language**. Artifacts are re-read every turn, where English's cheaper tokenization and stronger instruction-following pay off repeatedly; the conversation stays in the language you think in. It reads `docs/agents/artifact-language.md` and writes it itself (asking once) if `/setup-matt-pocock-skills` hasn't been run yet. See the [evidence behind the rule](./skills/engineering/english-artifacts/REFERENCE.md).
 
 ## Quickstart (30-second setup)
 
@@ -153,7 +153,7 @@ Software engineering fundamentals matter more than ever. These skills are my bes
 Skills I use daily for code work.
 
 - **[diagnose](./skills/engineering/diagnose/SKILL.md)** — Disciplined diagnosis loop for hard bugs and performance regressions: reproduce → minimise → hypothesise → instrument → fix → regression-test.
-- **[english-artifacts](./skills/engineering/english-artifacts/SKILL.md)** — Write durable artifacts (docs, specs, code, commits, issues/PRs) in English while keeping the live conversation in the project's own language, to cut token cost and sharpen instruction-following. Reads `docs/agents/artifact-language.md`.
+- **[english-artifacts](./skills/engineering/english-artifacts/SKILL.md)** — Write durable artifacts (docs, specs, code, commits, issues/PRs) in English while keeping the live conversation in the project's own language, to cut token cost and sharpen instruction-following. Reads `docs/agents/artifact-language.md`, bootstrapping it itself if absent.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** — Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates `CONTEXT.md` and ADRs inline.
 - **[triage](./skills/engineering/triage/SKILL.md)** — Triage issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** — Find deepening opportunities in a codebase, informed by the domain language in `CONTEXT.md` and the decisions in `docs/adr/`.

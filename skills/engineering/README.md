@@ -3,7 +3,7 @@
 Skills I use daily for code work.
 
 - **[diagnose](./diagnose/SKILL.md)** — Disciplined diagnosis loop for hard bugs and performance regressions: reproduce → minimise → hypothesise → instrument → fix → regression-test.
-- **[english-artifacts](./english-artifacts/SKILL.md)** — Write durable artifacts (docs, specs, code, commits, issues/PRs) in English while keeping the live conversation in the project's own language. Reads `docs/agents/artifact-language.md`.
+- **[english-artifacts](./english-artifacts/SKILL.md)** — Write durable artifacts (docs, specs, code, commits, issues/PRs) in English while keeping the live conversation in the project's own language. Reads `docs/agents/artifact-language.md`, bootstrapping it itself if absent.
 - **[grill-with-docs](./grill-with-docs/SKILL.md)** — Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates `CONTEXT.md` and ADRs inline.
 - **[triage](./triage/SKILL.md)** — Triage issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./improve-codebase-architecture/SKILL.md)** — Find deepening opportunities in a codebase, informed by the domain language in `CONTEXT.md` and the decisions in `docs/adr/`.

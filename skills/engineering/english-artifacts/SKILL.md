@@ -7,7 +7,9 @@ description: Write durable artifacts (CLAUDE.md, specs, PRDs, ADRs, READMEs, des
 
 Persistent artifacts stay in **English**. Live conversation stays in the project's **conversation language**.
 
-The two languages come from `docs/agents/artifact-language.md` — it should have been provided to you; run `/setup-matt-pocock-skills` if not. When that file is absent, default to **English** artifacts and **Portuguese (pt-BR)** conversation. Substitute the configured conversation language wherever this skill says "Portuguese (pt-BR)" below.
+The two languages come from `docs/agents/artifact-language.md`. If that file exists, read it and substitute its configured conversation language wherever this skill says "Portuguese (pt-BR)" below.
+
+If the file is absent, don't just silently default every session — bootstrap it once (see step 0 of the Workflow) so the choice persists for next time. `/setup-matt-pocock-skills` covers this file as part of a larger wizard (issue tracker, triage labels, domain docs); run it instead if you want to configure those too, or if you want to revisit the choice later.
 
 ## The rule
 
@@ -26,6 +28,21 @@ The high-token material that is re-read every turn is where English pays off: En
 
 ## Workflow
 
+0. **Bootstrap the language file if missing.** Check for `docs/agents/artifact-language.md`. If it's not there, ask the user once: *"Which language should I use for our conversation? (Artifacts will stay in English unless you say otherwise.)"* Then write `docs/agents/artifact-language.md`:
+
+   ```markdown
+   # Artifact Language
+
+   Which language persistent artifacts are written in vs. the live conversation. The
+   `english-artifacts` skill reads this file.
+
+   | Surface | Language |
+   | ------- | -------- |
+   | **Artifacts** — CLAUDE.md, specs, PRDs, ADRs, READMEs, design docs, code, identifiers, comments, docstrings, commit messages, issue/PR titles and bodies | **English** |
+   | **Conversation** — chat replies, explanations, reasoning, questions to the user, status updates | **<answer>** |
+   ```
+
+   Use this to answer the question once per repo, not once per turn — once the file exists, skip this step and just read it. (`/setup-matt-pocock-skills` writes the same file with more ceremony, as part of a larger wizard; either path is fine.)
 1. **Detect the surface.** Editing/creating a file, commit, issue, PR, or spec → artifact. Talking to the user → conversation.
 2. **Write artifacts in English** even when the user asked in Portuguese. Translate the *deliverable*, never the chat.
 3. **Reply in Portuguese** about what you did.
