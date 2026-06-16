@@ -1,6 +1,6 @@
 ---
 name: setup-matt-pocock-skills
-description: Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.
+description: Sets up an `## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo's issue tracker (GitHub or local markdown), triage label vocabulary, domain doc layout, and artifact language convention (which language persistent artifacts use vs. the live conversation). Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, `zoom-out`, or `english-artifacts` — or if those skills appear to be missing context about the issue tracker, triage labels, domain docs, or artifact language.
 disable-model-invocation: true
 ---
 
@@ -11,6 +11,7 @@ Scaffold the per-repo configuration that the engineering skills assume:
 - **Issue tracker** — where issues live (GitHub by default; local markdown is also supported out of the box)
 - **Triage labels** — the strings used for the five canonical triage roles
 - **Domain docs** — where `CONTEXT.md` and ADRs live, and the consumer rules for reading them
+- **Artifact language** — which language persistent artifacts are written in vs. the live conversation (consumed by `english-artifacts`)
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.
 
@@ -29,7 +30,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 
 ### 2. Present findings and ask
 
-Summarise what's present and what's missing. Then walk the user through the three decisions **one at a time** — present a section, get the user's answer, then move to the next. Don't dump all three at once.
+Summarise what's present and what's missing. Then walk the user through the four decisions **one at a time** — present a section, get the user's answer, then move to the next. Don't dump all four at once.
 
 Assume the user does not know what these terms mean. Each section starts with a short explainer (what it is, why these skills need it, what changes if they pick differently). Then show the choices and the default.
 
@@ -67,12 +68,21 @@ Confirm the layout:
 - **Single-context** — one `CONTEXT.md` + `docs/adr/` at the repo root. Most repos are this.
 - **Multi-context** — `CONTEXT-MAP.md` at the root pointing to per-context `CONTEXT.md` files (typically a monorepo).
 
+**Section D — Artifact language.**
+
+> Explainer: The `english-artifacts` skill keeps persistent artifacts (CLAUDE.md, specs, PRDs, ADRs, READMEs, code, identifiers, comments, commit messages, issue/PR titles and bodies) in **English** while keeping the live chat in your team's own language. The reason is that artifacts are re-read on every turn, where English's better instruction-following and cheaper tokenization pay off repeatedly; the conversation is ephemeral, so it costs little to keep it in the language you think in. The skill needs to know *which* language your conversation is in so it doesn't have to guess.
+
+Ask the user:
+
+- **Artifact language** — defaults to **English**, and there's rarely a reason to change it (that's the whole point of the skill). Only override if the user insists.
+- **Conversation language** — the language the user wants the agent to talk to them in (e.g. `pt-BR`, `es`, `fr`). No default — ask. If they want a single-language project (artifacts and conversation both in the same language), record that and the skill becomes a no-op.
+
 ### 3. Confirm and edit
 
 Show the user a draft of:
 
 - The `## Agent skills` block to add to whichever of `CLAUDE.md` / `AGENTS.md` is being edited (see step 4 for selection rules)
-- The contents of `docs/agents/issue-tracker.md`, `docs/agents/triage-labels.md`, `docs/agents/domain.md`
+- The contents of `docs/agents/issue-tracker.md`, `docs/agents/triage-labels.md`, `docs/agents/domain.md`, `docs/agents/artifact-language.md`
 
 Let them edit before writing.
 
@@ -104,6 +114,10 @@ The block:
 ### Domain docs
 
 [one-line summary of layout — "single-context" or "multi-context"]. See `docs/agents/domain.md`.
+
+### Artifact language
+
+[one-line summary — e.g. "Artifacts in English, conversation in pt-BR"]. See `docs/agents/artifact-language.md`.
 ```
 
 Then write the three docs files using the seed templates in this skill folder as a starting point:
@@ -113,9 +127,12 @@ Then write the three docs files using the seed templates in this skill folder as
 - [issue-tracker-local.md](./issue-tracker-local.md) — local-markdown issue tracker
 - [triage-labels.md](./triage-labels.md) — label mapping
 - [domain.md](./domain.md) — domain doc consumer rules + layout
+- [artifact-language.md](./artifact-language.md) — artifact vs. conversation language convention
 
 For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch using the user's description.
 
+When writing `docs/agents/artifact-language.md`, substitute the chosen conversation language wherever the template names a language.
+
 ### 5. Done
 
-Tell the user the setup is complete and which engineering skills will now read from these files. Mention they can edit `docs/agents/*.md` directly later — re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.
+Tell the user the setup is complete and which engineering skills will now read from these files (including `english-artifacts`, which reads `docs/agents/artifact-language.md`). Mention they can edit `docs/agents/*.md` directly later — re-running this skill is only necessary if they want to switch issue trackers, change the artifact/conversation languages, or restart from scratch.
