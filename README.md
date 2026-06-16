@@ -10,25 +10,38 @@
 
 # Skills For Real Engineers
 
-[![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
+[![skills.sh](https://skills.sh/b/joserobertomi/skills)](https://skills.sh/joserobertomi/skills)
 
-My agent skills that I use every day to do real engineering - not vibe coding.
+> **A fork of [`mattpocock/skills`](https://github.com/mattpocock/skills)**, maintained by [@joserobertomi](https://github.com/joserobertomi). It follows the original kit closely and adds one skill of its own — [`/english-artifacts`](./skills/engineering/english-artifacts/SKILL.md) — wired into the setup flow.
+
+Agent skills for doing real engineering — not vibe coding.
 
 Developing real applications is hard. Approaches like GSD, BMAD, and Spec-Kit try to help by owning the process. But while doing so, they take away your control and make bugs in the process hard to resolve.
 
 These skills are designed to be small, easy to adapt, and composable. They work with any model. They're based on decades of engineering experience. Hack around with them. Make them your own. Enjoy.
 
-If you want to keep up with changes to these skills, and any new ones I create, you can join ~60,000 other devs on my newsletter:
+## Credits & Inspiration
 
-[Sign Up To The Newsletter](https://www.aihero.dev/s/skills-newsletter)
+Every skill here except `english-artifacts` — and the entire philosophy this kit is built on — is the work of **[Matt Pocock](https://github.com/mattpocock)** ([Total TypeScript](https://www.totaltypescript.com/), [AI Hero](https://www.aihero.dev/)). Matt is one of the clearest engineering educators working today, and this kit distills decades of software-engineering fundamentals — grilling sessions, a ubiquitous language, tight feedback loops, deep modules — into practices an agent can actually follow.
+
+This fork exists only because that foundation was strong enough to build on. All credit for the original design and its ideas goes to Matt; any rough edges in the additions here are mine.
+
+- **Original repo:** [`mattpocock/skills`](https://github.com/mattpocock/skills)
+- **Matt's newsletter** (~60,000 devs): [Sign up](https://www.aihero.dev/s/skills-newsletter) to follow the upstream work
+
+## What This Fork Adds
+
+- **[`/english-artifacts`](./skills/engineering/english-artifacts/SKILL.md)** — keep durable artifacts (docs, specs, code, commits, issues/PRs) in **English** while the agent talks to you in your **own language**. Artifacts are re-read every turn, where English's cheaper tokenization and stronger instruction-following pay off repeatedly; the conversation stays in the language you think in. It's configured per repo by `/setup-matt-pocock-skills` (which now also asks for your artifact vs. conversation languages) and reads `docs/agents/artifact-language.md`. See the [evidence behind the rule](./skills/engineering/english-artifacts/REFERENCE.md).
 
 ## Quickstart (30-second setup)
 
 1. Run the skills.sh installer:
 
 ```bash
-npx skills@latest add mattpocock/skills
+npx skills@latest add joserobertomi/skills
 ```
+
+> Prefer the upstream kit without the `english-artifacts` addition? Use `mattpocock/skills` instead.
 
 2. Pick the skills you want, and which coding agents you want to install them on. **Make sure you select `/setup-matt-pocock-skills`**.
 
@@ -41,6 +54,8 @@ npx skills@latest add mattpocock/skills
 4. Bam - you're ready to go.
 
 ## Why These Skills Exist
+
+> The philosophy below is **Matt Pocock's**, preserved from the original repo in his own voice — it's the clearest statement of what these skills are for, so this fork keeps it intact rather than paraphrasing it.
 
 I built these skills as a way to fix common failure modes I see with Claude Code, Codex, and other coding agents.
 
